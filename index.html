@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tariff & Economic Impact Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .chart-container {
+      width: 80%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>U.S. Auto Tariffs & Economic Impact (2025)</h1>
+
+  <!-- Chart 1: Tariff Rates Comparison -->
+  <div class="chart-container">
+    <h2>Proposed & Existing Tariff Rates (%)</h2>
+    <canvas id="tariffChart"></canvas>
+  </div>
+
+  <!-- Chart 2: Economic Impact -->
+  <div class="chart-container">
+    <h2>Economic Impact of Tariffs (2025)</h2>
+    <canvas id="economicImpactChart"></canvas>
+  </div>
+
+  <!-- Chart 3: Auto Industry Stats -->
+  <div class="chart-container">
+    <h2>Automotive Industry Statistics</h2>
+    <canvas id="autoIndustryChart"></canvas>
+  </div>
+
+  <script>
+    // Chart 1: Tariff Rates (Bar Chart)
+    const tariffCtx = document.getElementById('tariffChart').getContext('2d');
+    const tariffChart = new Chart(tariffCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Auto Imports', 'China Imports', 'Mexico/Canada', 'Steel/Aluminum', 'Venezuela Oil', 'EU Spirits (Retaliatory)', 'EU Alcohol (Trump)'],
+        datasets: [{
+          label: 'Tariff Rate (%)',
+          data: [25, 20, 25, 25, 25, 50, 200],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(255, 159, 64, 0.7)',
+            'rgba(153, 102, 255, 0.7)',
+            'rgba(201, 203, 207, 0.7)',
+            'rgba(255, 0, 0, 0.7)'
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(255, 159, 64, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(201, 203, 207, 1)',
+            'rgba(255, 0, 0, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Tariff Rate (%)'
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Comparison of Proposed and Existing Tariffs (2025)'
+          }
+        }
+      }
+    });
+
+    // Chart 2: Economic Impact (Line Chart)
+    const economicCtx = document.getElementById('economicImpactChart').getContext('2d');
+    const economicImpactChart = new Chart(economicCtx, {
+      type: 'line',
+      data: {
+        labels: ['GDP Shrinkage (Q1 2025)', 'Auto Production Decline', 'Household Cost ($)', 'Auto Sales Drop (Units)', 'BEV Sales Share (%)'],
+        datasets: [{
+          label: 'Impact Magnitude',
+          data: [0.5, 0.04, 550, 700000, 7],
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 2,
+          tension: 0.1,
+          yAxisID: 'y'
+        }, {
+          label: 'Consumer Cost Pass-Through (%)',
+          data: [60, 80, null, null, null],
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+          borderColor: 'rgba(255, 99, 132, 1)',
+          borderWidth: 2,
+          tension: 0.1,
+          yAxisID: 'y1'
+        }]
+      },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        scales: {
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: true,
+              text: 'Economic Impact'
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+              display: true,
+              text: 'Pass-Through Rate (%)'
+            },
+            grid: {
+              drawOnChartArea: false
+            }
+          }
+        },
+        plugins: {
+          title: {
+            display: true,
+            text: 'Projected Economic Effects of Auto Tariffs (2025)'
+          }
+        }
+      }
+    });
+
+    // Chart 3: Auto Industry Stats (Doughnut Chart)
+    const autoCtx = document.getElementById('autoIndustryChart').getContext('2d');
+    const autoIndustryChart = new Chart(autoCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Imported Vehicles ($244B)', 'Imported Parts ($197B)', 'Domestic Manufacturing Jobs (1M)', 'Dealership Jobs (2.1M)'],
+        datasets: [{
+          label: 'Value in Billions',
+          data: [244, 197, 1, 2.1],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.7)',
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(255, 206, 86, 0.7)',
+            'rgba(75, 192, 192, 0.7)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'U.S. Automotive Industry Key Metrics (2025)'
+          },
+          legend: {
+            position: 'right'
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
